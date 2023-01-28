@@ -5,6 +5,7 @@ interface Props {
     type: React.HTMLInputTypeAttribute;
     placeholder?: string;
     autoComplete?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register: UseFormRegister<any>;
     name: string;
     rules?: RegisterOptions;
