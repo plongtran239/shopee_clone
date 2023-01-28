@@ -51,7 +51,7 @@ export default function Header() {
                             <div className='border-grey-200 relative rounded-md border bg-white shadow-md'>
                                 <div className='flex flex-col py-2 px-3'>
                                     <Link
-                                        to='/'
+                                        to='/profile'
                                         className='block bg-white py-2 px-3 text-left hover:bg-slate-100 hover:text-cyan-500'
                                     >
                                         Tài khoản của tôi
