@@ -7,7 +7,7 @@ import { omit } from 'lodash';
 
 import Input from 'src/components/Input';
 import { schema, Schema } from 'src/utils/schemas';
-import { registerAccount } from 'src/apis/auth.api';
+import authApi from 'src/apis/auth.api';
 import { isAxiosUnprocessableEntityError } from 'src/utils/utils';
 import { ErrorResponse } from 'src/types/utils.type';
 import { AppContext } from 'src/contexts/app.context';
@@ -31,7 +31,7 @@ export default function Register() {
     } = useForm<FormData>({ resolver: yupResolver(schema) });
 
     const registerAccountMutation = useMutation({
-        mutationFn: (body: Omit<FormData, 'confirm_password'>) => registerAccount(body)
+        mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.registerAccount(body)
     });
 
     const handleSubmitForm = handleSubmit((data) => {

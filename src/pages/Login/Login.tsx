@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import Input from 'src/components/Input';
 import { schema, Schema } from 'src/utils/schemas';
-import { login } from 'src/apis/auth.api';
+import authApi from 'src/apis/auth.api';
 import { isAxiosUnprocessableEntityError } from 'src/utils/utils';
 import { ErrorResponse } from 'src/types/utils.type';
 import { AppContext } from 'src/contexts/app.context';
@@ -31,7 +31,7 @@ export default function Login() {
     } = useForm<FormData>({ resolver: yupResolver(loginSchema) });
 
     const loginMutation = useMutation({
-        mutationFn: (body: FormData) => login(body)
+        mutationFn: (body: FormData) => authApi.login(body)
     });
 
     const handleSubmitForm = handleSubmit((data) => {
