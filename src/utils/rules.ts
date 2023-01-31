@@ -29,12 +29,12 @@ export const schema = yup.object({
         .oneOf([yup.ref('password')], 'Nhập lại mật khẩu không khớp'),
     price_min: yup.string().test({
         name: 'price-not-allowed',
-        message: 'Giá không phù hợp',
+        message: 'Vui lòng điền khoảng giá phù hợp',
         test: testPriceMinMax
     }),
     price_max: yup.string().test({
         name: 'price-not-allowed',
-        message: 'Giá không phù hợp',
+        message: 'Vui lòng điền khoảng giá phù hợp',
         test: testPriceMinMax
     })
 });
