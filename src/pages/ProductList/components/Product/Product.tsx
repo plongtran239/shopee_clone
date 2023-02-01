@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 
 import { Product as ProductType } from 'src/types/product.type';
-import { formatNumberToSocial, formatCurrency } from 'src/utils/utils';
+import { formatCurrency, formatNumberToSocialStyle } from 'src/utils/utils';
 import ProductRating from 'src/components/ProductRating';
+import paths from 'src/constants/paths';
 
 interface ProductProps {
     product: ProductType;
@@ -10,7 +11,7 @@ interface ProductProps {
 
 export default function Product({ product }: ProductProps) {
     return (
-        <Link to='/'>
+        <Link to={`${paths.home}${product._id}`}>
             <div className='overflow-hidden rounded-sm bg-white shadow transition-transform duration-100 hover:translate-y-[-0.04rem] hover:shadow-md'>
                 <div className='relative w-full pt-[100%]'>
                     <img
@@ -34,7 +35,7 @@ export default function Product({ product }: ProductProps) {
                     <div className='mt-3 flex items-center justify-end'>
                         <ProductRating rating={product.rating} />
                         <div className='ml-2 text-sm'>
-                            <span>{formatNumberToSocial(product.sold)}</span>
+                            <span>{formatNumberToSocialStyle(product.sold)}</span>
                             <span className='ml-1'>Đã bán</span>
                         </div>
                     </div>
