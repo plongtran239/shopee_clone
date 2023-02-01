@@ -5,12 +5,13 @@ import DOMPurify from 'dompurify';
 
 import productApi from 'src/apis/product.api';
 import ProductRating from 'src/components/ProductRating';
-import { formatCurrency, formatNumberToSocialStyle, rateSale } from 'src/utils/utils';
+import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils';
 import InputNumber from 'src/components/InputNumber';
 import { Product } from 'src/types/product.type';
 
 export default function ProductDetail() {
-    const { id } = useParams();
+    const { nameId } = useParams();
+    const id = getIdFromNameId(nameId as string);
     const { data: ProductDetailData } = useQuery({
         queryKey: ['product', id],
         queryFn: () => productApi.gerProductDetail(id as string)
