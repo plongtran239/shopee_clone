@@ -6,12 +6,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Button from 'src/components/Button';
 import InputNumber from 'src/components/InputNumber';
 import paths from 'src/constants/paths';
-import { QueryConfig } from '../../ProductList';
 import { Category } from 'src/types/category.type';
 import { Schema, schema } from 'src/utils/rules';
 import { NoUndefinedField } from 'src/types/utils.type';
 import RatingStars from './RatingStars';
 import { omit } from 'lodash';
+import { QueryConfig } from 'src/hooks/useQueryConfig';
 
 interface Props {
     queryConfig: QueryConfig;
