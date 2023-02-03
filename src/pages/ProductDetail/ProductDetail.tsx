@@ -6,9 +6,9 @@ import DOMPurify from 'dompurify';
 import productApi from 'src/apis/product.api';
 import ProductRating from 'src/components/ProductRating';
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils';
-import InputNumber from 'src/components/InputNumber';
 import { Product as ProductType, ProductListConfig } from 'src/types/product.type';
 import Product from '../ProductList/components/Product';
+import QuantityController from 'src/components/QuantityController';
 
 export default function ProductDetail() {
     const { nameId } = useParams();
@@ -17,6 +17,8 @@ export default function ProductDetail() {
         queryKey: ['product', id],
         queryFn: () => productApi.gerProductDetail(id as string)
     });
+
+    const [buyCount, setBuyCount] = useState(1);
 
     const [currentIndexImages, setCurrentIndexImages] = useState([0, 5]);
     const [activeImage, setActiveImage] = useState('');
@@ -83,6 +85,10 @@ export default function ProductDetail() {
 
     const handleRemoveZoom = () => {
         imageRef.current?.removeAttribute('style');
+    };
+
+    const handleBuyCountChange = (value: number) => {
+        setBuyCount(value);
     };
 
     if (!product) {
@@ -182,6 +188,7 @@ export default function ProductDetail() {
                                     <span className='ml-1 text-gray-500'>Đã bán</span>
                                 </div>
                             </div>
+
                             <div className='mt-8 flex items-center bg-gray-50 px-5 py-4'>
                                 <div className='text-gray-500 line-through'>
                                     ₫{formatCurrency(product.price_before_discount)}
@@ -193,46 +200,19 @@ export default function ProductDetail() {
                                     {rateSale(product.price_before_discount, product.price)} giảm
                                 </div>
                             </div>
+
                             <div className='mt-8 flex items-center'>
                                 <div className='capitalize text-gray-500'>Số lượng</div>
-                                <div className='ml-10 flex items-center'>
-                                    <button className='flex h-8 w-8 items-center justify-center rounded-l-sm border border-gray-300 text-gray-600'>
-                                        <svg
-                                            xmlns='http://www.w3.org/2000/svg'
-                                            fill='none'
-                                            viewBox='0 0 24 24'
-                                            strokeWidth={1.5}
-                                            stroke='currentColor'
-                                            className='h-4 w-4'
-                                        >
-                                            <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 12h-15' />
-                                        </svg>
-                                    </button>
-                                    <InputNumber
-                                        value={1}
-                                        className=''
-                                        classNameError='hidden'
-                                        classNameInput='h-8 w-14 border-t border-b border-gray-300 p-1 text-center outline-none'
-                                    />
-                                    <button className='flex h-8 w-8 items-center justify-center rounded-r-sm border border-gray-300 text-gray-600'>
-                                        <svg
-                                            xmlns='http://www.w3.org/2000/svg'
-                                            fill='none'
-                                            viewBox='0 0 24 24'
-                                            strokeWidth={1.5}
-                                            stroke='currentColor'
-                                            className='h-4 w-4'
-                                        >
-                                            <path
-                                                strokeLinecap='round'
-                                                strokeLinejoin='round'
-                                                d='M12 4.5v15m7.5-7.5h-15'
-                                            />
-                                        </svg>
-                                    </button>
-                                </div>
+                                <QuantityController
+                                    onDecrease={handleBuyCountChange}
+                                    onIncrease={handleBuyCountChange}
+                                    onType={handleBuyCountChange}
+                                    value={buyCount}
+                                    max={product.quantity}
+                                />
                                 <div className='ml-6 text-sm text-gray-500'>{product.quantity} sản phẩm có sẵn</div>
                             </div>
+
                             <div className='mt-8 flex items-center'>
                                 <button className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'>
                                     <svg
