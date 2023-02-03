@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { createSearchParams, Link, useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { omit } from 'lodash';
 
@@ -11,10 +11,16 @@ import paths from 'src/constants/paths';
 import useQueryConfig from 'src/hooks/useQueryConfig';
 import { schema, Schema } from 'src/utils/rules';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { purchasesStatus } from 'src/constants/purchase';
+import purchaseApi from 'src/apis/purchase.api';
+import noProductImg from 'src/assets/images/no-product.png';
+import { formatCurrency } from 'src/utils/utils';
 
 type FormData = Pick<Schema, 'name'>;
 
 const nameSchema = schema.pick(['name']);
+
+const MAX_PURCHASES_IN_CART = 5;
 
 export default function Header() {
     const queryConfig = useQueryConfig();
@@ -36,6 +42,12 @@ export default function Header() {
             setProfile(null);
         }
     });
+
+    const { data: purchasesInCartData } = useQuery({
+        queryKey: ['purchases', { status: purchasesStatus.inCart }],
+        queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart })
+    });
+    const purchasesInCart = purchasesInCartData?.data.data;
 
     const handleLogout = () => {
         logoutMutation.mutate();
@@ -190,111 +202,54 @@ export default function Header() {
                         <Popover
                             renderPopover={
                                 <div className='relative max-w-[400px] rounded-sm border border-gray-200 bg-white text-sm shadow-md'>
-                                    <div className='p-2'>
-                                        <div className='capitalize text-gray-400'>Sản phẩm mới thêm</div>
-                                        <div className='mt-5'>
-                                            <div className='mt-4 flex'>
-                                                <div className='flex-shrink-0'>
-                                                    <img
-                                                        src='https://cf.shopee.vn/file/sg-11134201-22110-s3ycuwtvgvjvb4_tn'
-                                                        alt='anh'
-                                                        className='h-11 w-11 object-cover'
-                                                    />
-                                                </div>
-                                                <div className='ml-2 flex-grow overflow-hidden'>
-                                                    <div className='truncate'>
-                                                        [LIFEMCMBP2 -12% đơn 250K] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16,
-                                                        20, 24 cm
+                                    {purchasesInCart ? (
+                                        <div className='py-2'>
+                                            <div className='p-2 capitalize text-gray-400'>Sản phẩm mới thêm</div>
+                                            <div className=''>
+                                                {purchasesInCart.slice(0, MAX_PURCHASES_IN_CART).map((purchase) => (
+                                                    <div
+                                                        className='mt-2 flex py-2 px-2 hover:bg-gray-100'
+                                                        key={purchase._id}
+                                                    >
+                                                        <div className='flex-shrink-0'>
+                                                            <img
+                                                                src={purchase.product.image}
+                                                                alt={purchase.product.name}
+                                                                className='h-11 w-11 object-cover'
+                                                            />
+                                                        </div>
+                                                        <div className='ml-2 flex-grow overflow-hidden'>
+                                                            <div className='truncate'>{purchase.product.name}</div>
+                                                        </div>
+                                                        <div className='ml-2 flex-shrink-0'>
+                                                            <span className='text-orange'>
+                                                                ₫{formatCurrency(purchase.product.price)}
+                                                            </span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className='ml-2 flex-shrink-0'>
-                                                    <span className='text-orange'>₫469.000</span>
-                                                </div>
+                                                ))}
                                             </div>
-                                            <div className='mt-4 flex'>
-                                                <div className='flex-shrink-0'>
-                                                    <img
-                                                        src='https://cf.shopee.vn/file/sg-11134201-22110-s3ycuwtvgvjvb4_tn'
-                                                        alt='anh'
-                                                        className='h-11 w-11 object-cover'
-                                                    />
+                                            <div className='mt-2 flex items-center justify-between'>
+                                                <div className='ml-2 text-xs capitalize text-gray-500'>
+                                                    {purchasesInCart.length > MAX_PURCHASES_IN_CART &&
+                                                        purchasesInCart.length - MAX_PURCHASES_IN_CART}{' '}
+                                                    Thêm hàng vào giỏ
                                                 </div>
-                                                <div className='ml-2 flex-grow overflow-hidden'>
-                                                    <div className='truncate'>
-                                                        [LIFEMCMBP2 -12% đơn 250K] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16,
-                                                        20, 24 cm
-                                                    </div>
-                                                </div>
-                                                <div className='ml-2 flex-shrink-0'>
-                                                    <span className='text-orange'>₫469.000</span>
-                                                </div>
-                                            </div>
-                                            <div className='mt-4 flex'>
-                                                <div className='flex-shrink-0'>
-                                                    <img
-                                                        src='https://cf.shopee.vn/file/sg-11134201-22110-s3ycuwtvgvjvb4_tn'
-                                                        alt='anh'
-                                                        className='h-11 w-11 object-cover'
-                                                    />
-                                                </div>
-                                                <div className='ml-2 flex-grow overflow-hidden'>
-                                                    <div className='truncate'>
-                                                        [LIFEMCMBP2 -12% đơn 250K] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16,
-                                                        20, 24 cm
-                                                    </div>
-                                                </div>
-                                                <div className='ml-2 flex-shrink-0'>
-                                                    <span className='text-orange'>₫469.000</span>
-                                                </div>
-                                            </div>
-                                            <div className='mt-4 flex'>
-                                                <div className='flex-shrink-0'>
-                                                    <img
-                                                        src='https://cf.shopee.vn/file/sg-11134201-22110-s3ycuwtvgvjvb4_tn'
-                                                        alt='anh'
-                                                        className='h-11 w-11 object-cover'
-                                                    />
-                                                </div>
-                                                <div className='ml-2 flex-grow overflow-hidden'>
-                                                    <div className='truncate'>
-                                                        [LIFEMCMBP2 -12% đơn 250K] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16,
-                                                        20, 24 cm
-                                                    </div>
-                                                </div>
-                                                <div className='ml-2 flex-shrink-0'>
-                                                    <span className='text-orange'>₫469.000</span>
-                                                </div>
-                                            </div>
-                                            <div className='mt-4 flex'>
-                                                <div className='flex-shrink-0'>
-                                                    <img
-                                                        src='https://cf.shopee.vn/file/sg-11134201-22110-s3ycuwtvgvjvb4_tn'
-                                                        alt='anh'
-                                                        className='h-11 w-11 object-cover'
-                                                    />
-                                                </div>
-                                                <div className='ml-2 flex-grow overflow-hidden'>
-                                                    <div className='truncate'>
-                                                        [LIFEMCMBP2 -12% đơn 250K] Bộ Nồi Inox 3 Đáy SUNHOUSE SH334 16,
-                                                        20, 24 cm
-                                                    </div>
-                                                </div>
-                                                <div className='ml-2 flex-shrink-0'>
-                                                    <span className='text-orange'>₫469.000</span>
-                                                </div>
+                                                <button className='mr-2 rounded-sm bg-orange px-4 py-2 capitalize text-white hover:bg-opacity-90'>
+                                                    Xem giỏ hàng
+                                                </button>
                                             </div>
                                         </div>
-                                        <div className='mt-6 flex items-center justify-between'>
-                                            <div className='text-xs capitalize text-gray-500'>Thêm hàng vào giỏ</div>
-                                            <button className='rounded-sm bg-orange px-4 py-2 capitalize text-white hover:bg-opacity-90'>
-                                                Xem giỏ hàng
-                                            </button>
+                                    ) : (
+                                        <div className='py-2'>
+                                            <img src={noProductImg} alt='No purchase' className='h-24 w-24' />
+                                            <div className='mt-3 capitalize'>Chưa có sản phẩm</div>
                                         </div>
-                                    </div>
+                                    )}
                                 </div>
                             }
                         >
-                            <Link to='/'>
+                            <Link to='/' className='relative'>
                                 <svg
                                     xmlns='http://www.w3.org/2000/svg'
                                     fill='none'
@@ -309,6 +264,9 @@ export default function Header() {
                                         d='M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z'
                                     />
                                 </svg>
+                                <span className='absolute top-[-5px] left-[17px] rounded-full bg-white px-[9px] py-[1px] text-xs text-orange '>
+                                    {purchasesInCart?.length}
+                                </span>
                             </Link>
                         </Popover>
                     </div>

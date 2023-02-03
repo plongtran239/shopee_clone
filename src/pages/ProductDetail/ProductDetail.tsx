@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
@@ -9,6 +9,9 @@ import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } 
 import { Product as ProductType, ProductListConfig } from 'src/types/product.type';
 import Product from '../ProductList/components/Product';
 import QuantityController from 'src/components/QuantityController';
+import purchaseApi from 'src/apis/purchase.api';
+import { purchasesStatus } from 'src/constants/purchase';
+import { toast } from 'react-toastify';
 
 export default function ProductDetail() {
     const { nameId } = useParams();
@@ -17,6 +20,8 @@ export default function ProductDetail() {
         queryKey: ['product', id],
         queryFn: () => productApi.gerProductDetail(id as string)
     });
+
+    const queryClient = useQueryClient();
 
     const [buyCount, setBuyCount] = useState(1);
 
@@ -39,6 +44,8 @@ export default function ProductDetail() {
         enabled: Boolean(product),
         staleTime: 3 * 60 * 1000
     });
+
+    const addToCartMutation = useMutation(purchaseApi.addToCart);
 
     useEffect(() => {
         if (product && product.images.length > 0) {
@@ -89,6 +96,18 @@ export default function ProductDetail() {
 
     const handleBuyCountChange = (value: number) => {
         setBuyCount(value);
+    };
+
+    const addToCart = () => {
+        addToCartMutation.mutate(
+            { buy_count: buyCount, product_id: product?._id as string },
+            {
+                onSuccess: (data) => {
+                    queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] });
+                    toast.success(data.data.message, { position: 'top-center', autoClose: 1500 });
+                }
+            }
+        );
     };
 
     if (!product) {
@@ -214,7 +233,10 @@ export default function ProductDetail() {
                             </div>
 
                             <div className='mt-8 flex items-center'>
-                                <button className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'>
+                                <button
+                                    onClick={addToCart}
+                                    className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
+                                >
                                     <svg
                                         enableBackground='new 0 0 15 15'
                                         viewBox='0 0 15 15'

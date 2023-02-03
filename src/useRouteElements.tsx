@@ -61,7 +61,6 @@ export default function useRouteElements() {
         },
         {
             path: paths.productDetail,
-            index: true,
             element: (
                 <MainLayout>
                     <ProductDetail />
