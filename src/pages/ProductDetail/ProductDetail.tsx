@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
 import productApi from 'src/apis/product.api';
@@ -12,6 +12,7 @@ import QuantityController from 'src/components/QuantityController';
 import purchaseApi from 'src/apis/purchase.api';
 import { purchasesStatus } from 'src/constants/purchase';
 import { toast } from 'react-toastify';
+import paths from 'src/constants/paths';
 
 export default function ProductDetail() {
     const { nameId } = useParams();
@@ -21,9 +22,9 @@ export default function ProductDetail() {
         queryFn: () => productApi.gerProductDetail(id as string)
     });
 
-    const queryClient = useQueryClient();
-
     const [buyCount, setBuyCount] = useState(1);
+    const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
     const [currentIndexImages, setCurrentIndexImages] = useState([0, 5]);
     const [activeImage, setActiveImage] = useState('');
@@ -108,6 +109,19 @@ export default function ProductDetail() {
                 }
             }
         );
+    };
+
+    const buyNow = async () => {
+        const res = await addToCartMutation.mutateAsync({
+            buy_count: buyCount,
+            product_id: product?._id as string
+        });
+        const purchase = res.data.data;
+        navigate(paths.cart, {
+            state: {
+                purchaseId: purchase._id
+            }
+        });
     };
 
     if (!product) {
@@ -278,7 +292,10 @@ export default function ProductDetail() {
                                     </svg>
                                     Thêm vào giỏ hàng
                                 </button>
-                                <button className='fkex ml-4 h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'>
+                                <button
+                                    className='fkex ml-4 h-12 min-w-[5rem] items-center justify-center rounded-sm bg-orange px-5 capitalize text-white shadow-sm outline-none hover:bg-orange/90'
+                                    onClick={buyNow}
+                                >
                                     Mua ngay
                                 </button>
                             </div>
