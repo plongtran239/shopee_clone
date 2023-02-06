@@ -8,10 +8,13 @@ import CartLayout from './layouts/CartLayout';
 import ProductList from './pages/ProductList';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Profile from './pages/Profile';
 import paths from 'src/constants/paths';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
+import Profile from './pages/User/pages/Profile';
+import UserLayout from './pages/User/layouts/UserLayout';
+import ChangePassword from './pages/User/pages/ChangePassword';
+import HistoryPurchase from './pages/User/pages/HistoryPurchase';
 
 function ProtectedRoute() {
     const { isAuthenticated } = useContext(AppContext);
@@ -52,20 +55,34 @@ export default function useRouteElements() {
             element: <ProtectedRoute />,
             children: [
                 {
-                    path: paths.profile,
-                    element: (
-                        <MainLayout>
-                            <Profile />
-                        </MainLayout>
-                    )
-                },
-                {
                     path: paths.cart,
                     element: (
                         <CartLayout>
                             <Cart />
                         </CartLayout>
                     )
+                },
+                {
+                    path: paths.user,
+                    element: (
+                        <MainLayout>
+                            <UserLayout />
+                        </MainLayout>
+                    ),
+                    children: [
+                        {
+                            path: paths.profile,
+                            element: <Profile />
+                        },
+                        {
+                            path: paths.changePassword,
+                            element: <ChangePassword />
+                        },
+                        {
+                            path: paths.historyPurchases,
+                            element: <HistoryPurchase />
+                        }
+                    ]
                 }
             ]
         },

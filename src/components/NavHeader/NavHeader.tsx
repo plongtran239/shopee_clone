@@ -89,7 +89,7 @@ export default function NavHeader() {
                                     Tài khoản của tôi
                                 </Link>
                                 <Link
-                                    to='/'
+                                    to={paths.historyPurchases}
                                     className='block bg-white py-2 px-3 text-left hover:bg-slate-100 hover:text-cyan-500'
                                 >
                                     Đơn mua
