@@ -79,7 +79,7 @@ export default function useRouteElements() {
                             element: <ChangePassword />
                         },
                         {
-                            path: paths.historyPurchases,
+                            path: paths.historyPurchase,
                             element: <HistoryPurchase />
                         }
                     ]
