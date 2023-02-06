@@ -12,6 +12,7 @@ class Http {
 
     constructor() {
         this.accessToken = getAccessTokenFromLS();
+
         this.instance = axios.create({
             baseURL: 'https://api-ecom.duthanhduoc.com/',
             timeout: 10000,
@@ -19,6 +20,7 @@ class Http {
                 'Content-Type': 'application/json'
             }
         });
+
         this.instance.interceptors.request.use(
             (config) => {
                 if (this.accessToken && config.headers) {
@@ -31,6 +33,7 @@ class Http {
                 return Promise.reject(error);
             }
         );
+
         this.instance.interceptors.response.use(
             (response) => {
                 const { url } = response.config;
@@ -61,10 +64,12 @@ class Http {
                         theme: 'light'
                     });
                 }
+                if (error.response?.status === HttpStatusCode.Unauthorized) {
+                    clearLS();
+                }
                 return Promise.reject(error);
             }
         );
-        this.instance.interceptors;
     }
 }
 
