@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { useForm, Controller } from 'react-hook-form';
 import { createSearchParams, Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
+import omit from 'lodash/omit';
 
 import Button from 'src/components/Button';
 import InputNumber from 'src/components/InputNumber';
@@ -10,7 +11,6 @@ import { Category } from 'src/types/category.type';
 import { Schema, schema } from 'src/utils/rules';
 import { NoUndefinedField } from 'src/types/utils.type';
 import RatingStars from './RatingStars';
-import { omit } from 'lodash';
 import { QueryConfig } from 'src/hooks/useQueryConfig';
 // import InputV2 from 'src/components/InputV2';
 

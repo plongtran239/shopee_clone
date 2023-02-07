@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { createSearchParams, Link, useNavigate } from 'react-router-dom';
+import omit from 'lodash/omit';
 
 import { sortBy, order as orderConstant } from 'src/constants/product';
 import { ProductListConfig } from 'src/types/product.type';
 import paths from 'src/constants/paths';
-import { omit } from 'lodash';
 import { QueryConfig } from 'src/hooks/useQueryConfig';
 
 interface Props {

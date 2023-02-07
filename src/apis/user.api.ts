@@ -1,4 +1,4 @@
-import { Omit } from 'lodash';
+import Omit from 'lodash/omit';
 
 import { User } from 'src/types/user.type';
 import { SuccessResponse } from 'src/types/utils.type';

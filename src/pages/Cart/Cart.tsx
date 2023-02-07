@@ -10,7 +10,7 @@ import paths from 'src/constants/paths';
 import { purchasesStatus } from 'src/constants/purchase';
 import { Purchase } from 'src/types/purchase.type';
 import { formatCurrency, generateNameId } from 'src/utils/utils';
-import { keyBy } from 'lodash';
+import keyBy from 'lodash/keyBy';
 import { toast } from 'react-toastify';
 import { AppContext } from 'src/contexts/app.context';
 import noProductImg from 'src/assets/images/no-product.png';
