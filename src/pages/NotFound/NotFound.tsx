@@ -13,7 +13,7 @@ export default function NotFound() {
                     <br />
                     <br />
                     <p className='text-2xl font-light leading-normal md:text-3xl'>
-                        <strong>Page Not Found</strong>
+                        <strong>Page Not Found!</strong>
                     </p>
                     <br />
                     <br />
