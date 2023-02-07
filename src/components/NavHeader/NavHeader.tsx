@@ -7,7 +7,7 @@ import paths from 'src/constants/paths';
 import { purchasesStatus } from 'src/constants/purchase';
 import { AppContext } from 'src/contexts/app.context';
 import Popover from '../Popover';
-import defaultAvatar from 'src/assets/images/default-avatar.png';
+import { getAvatarUrl } from 'src/utils/utils';
 
 export default function NavHeader() {
     const { isAuthenticated, setIsAuthenticated, profile, setProfile } = useContext(AppContext);
@@ -105,14 +105,16 @@ export default function NavHeader() {
                         </div>
                     }
                 >
-                    <div className='mr-2 h-6 w-6 flex-shrink-0'>
-                        <img
-                            src={profile?.avatar || defaultAvatar}
-                            alt='avatar'
-                            className='white h-full w-full rounded-full object-cover'
-                        />
-                    </div>
-                    <div>{profile?.email}</div>
+                    <Link to={paths.historyPurchase} className='flex items-center'>
+                        <div className='mr-2 h-6 w-6 flex-shrink-0'>
+                            <img
+                                src={getAvatarUrl(profile?.avatar)}
+                                alt='avatar'
+                                className='white h-full w-full rounded-full object-cover'
+                            />
+                        </div>
+                        <div>{profile?.email}</div>
+                    </Link>
                 </Popover>
             )}
         </div>
