@@ -82,6 +82,7 @@ export default function Login() {
                                 name='password'
                                 errorMessage={errors.password?.message}
                                 autoComplete='on'
+                                classNameEye='absolute top-[12px] right-[5px] h-5 w-5 cursor-pointer'
                             />
 
                             <div className='mt-3'>
