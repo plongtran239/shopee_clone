@@ -14,6 +14,7 @@ import { userSchema, UserSchema } from 'src/utils/rules';
 import DateSelect from '../../components/DateSelect';
 import { getAvatarUrl, isAxiosUnprocessableEntityError } from 'src/utils/utils';
 import { ErrorResponse } from 'src/types/utils.type';
+import config from 'src/constants/config';
 
 type FormData = Pick<UserSchema, 'name' | 'address' | 'phone' | 'date_of_birth' | 'avatar'>;
 
@@ -118,7 +119,15 @@ export default function Profile() {
 
     const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileFromLocal = event.target.files?.[0];
-        setFile(fileFromLocal);
+
+        if (
+            fileFromLocal &&
+            (fileFromLocal.size >= config.maxUploadAvatarSize || !fileFromLocal.type.includes('image'))
+        ) {
+            toast.error(`Dung lượng file tối đa 1 MB. Định dạng:.JPEG, .PNG`);
+        } else {
+            setFile(fileFromLocal);
+        }
     };
 
     return (
@@ -220,6 +229,10 @@ export default function Profile() {
                             accept='.jpg,.jpeg,.png'
                             ref={fileInputRef}
                             onChange={onFileChange}
+                            onClick={(event) => {
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                (event.target as any).value = null;
+                            }}
                         />
                         <button
                             className='flex h-10 items-center justify-end rounded-sm border bg-white px-6 text-sm text-gray-600 shadow-sm'
@@ -229,7 +242,7 @@ export default function Profile() {
                             Chọn ảnh
                         </button>
                         <div className='mt-3 text-gray-400'>
-                            <div>Dụng lượng file tối đa 1 MB</div>
+                            <div>Dung lượng file tối đa 1 MB</div>
                             <div>Định dạng:.JPEG, .PNG</div>
                         </div>
                     </div>
