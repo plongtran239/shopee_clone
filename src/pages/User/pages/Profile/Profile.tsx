@@ -16,6 +16,7 @@ import DateSelect from '../../components/DateSelect';
 import { getAvatarUrl, isAxiosUnprocessableEntityError } from 'src/utils/utils';
 import { ErrorResponse } from 'src/types/utils.type';
 import InputFile from 'src/components/InputFile';
+import { Helmet } from 'react-helmet-async';
 
 function Info() {
     const { t } = useTranslation('user');
@@ -180,6 +181,10 @@ export default function Profile() {
 
     return (
         <div className='rounded-sm bg-white px-2 pb-10 shadow md:px-7 md:pb-20'>
+            <Helmet>
+                <title>Hồ Sơ | Shopee Clone</title>
+                <meta name='description' content='Hồ sơ người dùng của dự án Shopee Clone' />
+            </Helmet>
             <div className='border-b border-b-gray-200 py-6'>
                 <h1 className='text-lg font-medium capitalize text-gray-900'>{t('profile.my profile')}</h1>
                 <div className='mt-1 text-sm text-gray-700'>{t('profile.my profile desc')}</div>

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import omit from 'lodash/omit';
+import { Helmet } from 'react-helmet-async';
 
 import Input from 'src/components/Input';
 import { schema, Schema } from 'src/utils/rules';
@@ -64,6 +65,10 @@ export default function Register() {
 
     return (
         <div className='bg-orange'>
+            <Helmet>
+                <title>Đăng Ký | Shopee Clone</title>
+                <meta name='description' content='Đăng ký tài khoản vào dự án Shopee Clone' />
+            </Helmet>
             <div className='container'>
                 <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
                     <div className='lg:col-span-2 lg:col-start-4'>

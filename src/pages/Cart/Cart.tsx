@@ -3,6 +3,7 @@ import { useContext, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { produce } from 'immer';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet-async';
 
 import purchaseApi from 'src/apis/purchase.api';
 import Button from 'src/components/Button';
@@ -158,6 +159,10 @@ export default function Cart() {
 
     return (
         <div className='bg-neutral-100 py-16'>
+            <Helmet>
+                <title>Giỏ Hàng | Shopee Clone</title>
+                <meta name='description' content='Trang chủ dự án Shopee Clone' />
+            </Helmet>
             <div className='container'>
                 {extendedPurchases && extendedPurchases.length > 0 ? (
                     <>

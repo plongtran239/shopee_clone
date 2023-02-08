@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet-async';
 
 import Input from 'src/components/Input';
 import { schema, Schema } from 'src/utils/rules';
@@ -62,6 +63,10 @@ export default function Login() {
 
     return (
         <div className='bg-orange'>
+            <Helmet>
+                <title>Đăng Nhập | Shopee Clone</title>
+                <meta name='description' content='Đăng nhập vào dự án Shopee Clone' />
+            </Helmet>
             <div className='container'>
                 <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
                     <div className='lg:col-span-2 lg:col-start-4'>

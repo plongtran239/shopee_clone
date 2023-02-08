@@ -3,6 +3,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams, useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet-async';
+import { convert } from 'html-to-text';
 
 import productApi from 'src/apis/product.api';
 import ProductRating from 'src/components/ProductRating';
@@ -133,6 +135,17 @@ export default function ProductDetail() {
 
     return (
         <div className='bg-gray-200 py-6'>
+            <Helmet>
+                <title>{product.name} | Shopee Clone</title>
+                <meta
+                    name='description'
+                    content={convert(product.description, {
+                        limits: {
+                            maxInputLength: 150
+                        }
+                    })}
+                />
+            </Helmet>
             <div className='container'>
                 <div className='bg-white p-4 shadow'>
                     <div className='grid grid-cols-12 gap-9'>

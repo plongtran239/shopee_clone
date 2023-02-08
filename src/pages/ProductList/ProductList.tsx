@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
 
 import productApi from 'src/apis/product.api';
 import categoryApi from 'src/apis/category.api';
@@ -30,6 +31,10 @@ export default function ProductList() {
 
     return (
         <div className='bg-gray-200 py-6'>
+            <Helmet>
+                <title>Trang Chủ | Shopee Clone</title>
+                <meta name='description' content='Trang chủ dự án Shopee Clone' />
+            </Helmet>
             <div className='container'>
                 {productsData && (
                     <div className='grid grid-cols-12 gap-6'>

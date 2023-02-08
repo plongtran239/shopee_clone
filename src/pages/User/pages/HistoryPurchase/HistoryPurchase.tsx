@@ -9,6 +9,7 @@ import paths from 'src/constants/paths';
 import { purchasesStatus } from 'src/constants/purchase';
 import { PurchaseListStatus } from 'src/types/purchase.type';
 import { formatCurrency, generateNameId } from 'src/utils/utils';
+import { Helmet } from 'react-helmet-async';
 
 export default function HistoryPurchase() {
     const { t } = useTranslation('user');
@@ -52,6 +53,10 @@ export default function HistoryPurchase() {
 
     return (
         <div className='overflow-x-auto'>
+            <Helmet>
+                <title>Đơn Mua | Shopee Clone</title>
+                <meta name='description' content='Trang đơn mua dự án Shopee Clone' />
+            </Helmet>
             <div className='min-w-[700px]'>
                 <div className='sticky top-0 flex rounded-t-sm shadow-sm'>{purchaseTabsLink}</div>
                 <div>
