@@ -1,0 +1,19 @@
+{
+    "cart": {
+        "recenly added products": "Recently Added Products",
+        "more products": "More Products In Cart",
+        "view shopping cart": "View My Shopping Cart",
+        "no product": "No Products Yet"
+    },
+    "nav header": {
+        "sign up": "Sign Up",
+        "login": "Login",
+        "my account": "My Account",
+        "my purchase": "My Purchase",
+        "logout": "Logout"
+    },
+    "auth": {
+        "new to shopee": "New to Shopee?",
+        "have an account": "Have an account?"
+    }
+}

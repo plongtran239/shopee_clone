@@ -1,0 +1,36 @@
+{
+    "side nav": {
+        "edit profile": "Sửa Hồ Sơ",
+        "my account": "Tài Khoản Của Tôi",
+        "change pw": "Đổi Mật Khẩu",
+        "my purchase": "Đơn Mua"
+    },
+    "profile": {
+        "my profile": "Hồ Sơ Của Tôi",
+        "my profile desc": "Quản lý thông tin hồ sơ để bảo mật tài khoản",
+        "name": "Tên",
+        "phone": "Số Điện Thoại",
+        "address": "Địa Chỉ",
+        "dob": "Ngày Sinh",
+        "save": "Lưu",
+        "select image": "Chọn Ảnh",
+        "size": "Dung lượng file tối đa: 1MB",
+        "extension": "Định dạng: .JPEG, .PNG"
+    },
+    "change password": {
+        "change pw desc": "Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác",
+        "current pw": "Mật Khẩu Hiện Tại",
+        "new pw": "Mật Khẩu Mới",
+        "confirm pw": "Xác Nhận Mật Khẩu",
+        "confirm": "Xác Nhận"
+    },
+    "history purchase": {
+        "all": "Tất Cả",
+        "to pay": "Chờ thanh toán",
+        "to ship": "Vận chuyển",
+        "to receive": "Đang giao",
+        "completed": "Hoàn thành",
+        "cancelled": "Đã hủy",
+        "order total": "Thành tiền"
+    }
+}

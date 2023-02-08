@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 
 import paths from 'src/constants/paths';
@@ -9,6 +10,8 @@ interface Props {
 }
 
 export default function RatingStars({ queryConfig }: Props) {
+    const { t } = useTranslation('home');
+
     const navigate = useNavigate();
 
     const handleFilterStar = (ratingFilter: number) => {
@@ -22,7 +25,7 @@ export default function RatingStars({ queryConfig }: Props) {
     };
 
     return (
-        <ul className='my-3 block w-40'>
+        <ul className='my-2 block w-44'>
             {Array(5)
                 .fill(0)
                 .map((_, index) => (
@@ -110,7 +113,7 @@ export default function RatingStars({ queryConfig }: Props) {
                                         </svg>
                                     );
                                 })}
-                            {index !== 0 && <span>trở lên</span>}
+                            {index !== 0 && <span> {t('aside filter.up')}</span>}
                         </div>
                     </li>
                 ))}

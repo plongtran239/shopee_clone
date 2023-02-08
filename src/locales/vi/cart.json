@@ -1,0 +1,20 @@
+{
+    "cart header": {
+        "shopping cart": "Giỏ Hàng"
+    },
+    "cart body": {
+        "product": "Sản Phẩm",
+        "unit price": "Đơn Giá",
+        "quantity": "Số Lượng",
+        "total price": "Số Tiền",
+        "actions": "Thao Tác",
+        "delete": "Xóa",
+        "select all": "Chọn Tất Cả",
+        "total": "Tổng Thanh Toán",
+        "item": "sản phẩm",
+        "saved": "Tiết Kiệm",
+        "check out": "Mua Hàng",
+        "empty cart": "Giỏ hàng của bạn còn trống",
+        "go shopping": "Mua Ngay"
+    }
+}

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 import Input from 'src/components/Input';
 import { schema, Schema } from 'src/utils/rules';
@@ -17,6 +18,8 @@ type FormData = Pick<Schema, 'email' | 'password'>;
 const loginSchema = schema.pick(['email', 'password']);
 
 export default function Login() {
+    const { t } = useTranslation('header');
+
     const { setIsAuthenticated, setProfile } = useContext(AppContext);
 
     const navigate = useNavigate();
@@ -63,7 +66,7 @@ export default function Login() {
                 <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
                     <div className='lg:col-span-2 lg:col-start-4'>
                         <form className='rounded bg-white p-10 shadow-sm' onSubmit={handleSubmitForm} noValidate>
-                            <div className='text-2xl'>Đăng nhập</div>
+                            <div className='text-2xl'>{t('nav header.login')}</div>
 
                             <Input
                                 className='mt-8'
@@ -92,13 +95,13 @@ export default function Login() {
                                     isLoading={loginMutation.isLoading}
                                     disabled={loginMutation.isLoading}
                                 >
-                                    Đăng nhập
+                                    {t('nav header.login')}
                                 </Button>
                             </div>
                             <div className='mt-8 flex items-center justify-center'>
-                                <span className='text-gray-400'>Bạn chưa có tài khoản?</span>
+                                <span className='text-gray-400'>{t('auth.new to shopee')}</span>
                                 <Link className='ml-1 text-red-400' to={paths.register}>
-                                    Đăng ký
+                                    {t('nav header.sign up')}
                                 </Link>
                             </div>
                         </form>

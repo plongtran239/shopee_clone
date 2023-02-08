@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import LockResetOutlinedIcon from '@mui/icons-material/LockResetOutlined';
@@ -11,6 +12,8 @@ import { AppContext } from 'src/contexts/app.context';
 import { getAvatarUrl } from 'src/utils/utils';
 
 export default function UserSideNav() {
+    const { t } = useTranslation('user');
+
     const { profile } = useContext(AppContext);
 
     return (
@@ -42,7 +45,7 @@ export default function UserSideNav() {
                                 fillRule='evenodd'
                             />
                         </svg>
-                        Sửa hồ sơ
+                        {t('side nav.edit profile')}
                     </NavLink>
                 </div>
             </div>
@@ -59,7 +62,7 @@ export default function UserSideNav() {
                     <div className='mr-3 h-[22px] w-[22px]'>
                         <PersonOutlinedIcon />
                     </div>
-                    Tài khoản của tôi
+                    {t('side nav.my account')}
                 </NavLink>
                 <NavLink
                     to={paths.changePassword}
@@ -73,7 +76,7 @@ export default function UserSideNav() {
                     <div className='mr-3 h-[22px] w-[22px]'>
                         <LockResetOutlinedIcon />
                     </div>
-                    Đổi mật khẩu
+                    {t('side nav.change pw')}
                 </NavLink>
                 <NavLink
                     to={paths.historyPurchase}
@@ -87,7 +90,7 @@ export default function UserSideNav() {
                     <div className='mr-3 h-[22px] w-[22px]'>
                         <AssignmentOutlinedIcon />
                     </div>
-                    Đơn mua
+                    {t('side nav.my purchase')}
                 </NavLink>
             </div>
         </div>

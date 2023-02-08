@@ -11,10 +11,13 @@ import noProductImg from 'src/assets/images/no-product.png';
 import { formatCurrency } from 'src/utils/utils';
 import NavHeader from '../NavHeader';
 import useSearchProducts from 'src/hooks/useSearchProducts';
+import { useTranslation } from 'react-i18next';
 
 const MAX_PURCHASES_IN_CART = 5;
 
 export default function Header() {
+    const { t } = useTranslation('header');
+
     const { register, onSubmitSearch } = useSearchProducts();
 
     const { isAuthenticated } = useContext(AppContext);
@@ -71,7 +74,9 @@ export default function Header() {
                                 <div className='relative max-w-[400px] rounded-sm border border-gray-200 bg-white text-sm shadow-md'>
                                     {purchasesInCart && purchasesInCart.length > 0 ? (
                                         <div className='py-2'>
-                                            <div className='p-2 capitalize text-gray-400'>Sản phẩm mới thêm</div>
+                                            <div className='p-2 capitalize text-gray-400'>
+                                                {t('cart.recenly added products')}
+                                            </div>
                                             <div className=''>
                                                 {purchasesInCart.slice(0, MAX_PURCHASES_IN_CART).map((purchase) => (
                                                     <div
@@ -99,14 +104,16 @@ export default function Header() {
                                             <div className='mt-2 flex items-center justify-between'>
                                                 <div className='ml-2 text-xs capitalize text-gray-500'>
                                                     {purchasesInCart.length > MAX_PURCHASES_IN_CART &&
-                                                        purchasesInCart.length - MAX_PURCHASES_IN_CART}{' '}
-                                                    Thêm hàng vào giỏ
+                                                        `${purchasesInCart.length - MAX_PURCHASES_IN_CART} ${t(
+                                                            'cart.more products'
+                                                        )}
+                                                        `}
                                                 </div>
                                                 <Link
                                                     to={paths.cart}
                                                     className='mr-2 rounded-sm bg-orange px-4 py-2 capitalize text-white hover:bg-opacity-90'
                                                 >
-                                                    Xem giỏ hàng
+                                                    {t('cart.view shopping cart')}
                                                 </Link>
                                             </div>
                                         </div>
@@ -117,7 +124,7 @@ export default function Header() {
                                                 alt='No purchase'
                                                 className='inline-block h-24 w-24'
                                             />
-                                            <div className='mt-5 capitalize'>Chưa có sản phẩm</div>
+                                            <div className='mt-5 capitalize'> {t('cart.no product')}</div>
                                         </div>
                                     )}
                                 </div>

@@ -1,0 +1,19 @@
+{
+    "cart": {
+        "recenly added products": "Sản Phẩm Mới Thêm",
+        "more products": "sản phẩm thêm trong giỏ hàng",
+        "view shopping cart": "Xem Giỏ Hàng",
+        "no product": "Chưa Có Sản Phẩm"
+    },
+    "nav header": {
+        "sign up": "Đăng Ký",
+        "login": "Đăng Nhập",
+        "my account": "Tài Khoản Của Tôi",
+        "my purchase": "Đơn Mua",
+        "logout": "Đăng Xuất"
+    },
+    "auth": {
+        "new to shopee": "Bạn chưa có tài khoản?",
+        "have an account": "Bạn đã có tài khoản?"
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "aside filter": {
+        "all categories": "TẤT CẢ DANH MỤC",
+        "search filter": "BỘ LỌC TÌM KIẾM",
+        "price range": "Khoảng Giá",
+        "from": "TỪ",
+        "to": "ĐẾN",
+        "apply": "ÁP DỤNG",
+        "rating": "Đánh Giá",
+        "up": "Trở Lên",
+        "delete all": "XÓA TẤT CẢ"
+    },
+    "sort productlist": {
+        "sort by": "Sắp xếp theo",
+        "relevance": "Phổ Biến",
+        "latest": "Mới Nhất",
+        "top sales": "Bán Chạy",
+        "price": "Giá",
+        "price: low to high": "Giá: Thấp đến Cao",
+        "price: high to low": "Giá: Cao đến Thấp"
+    },
+    "product": {
+        "sold": "đã bán"
+    }
+}

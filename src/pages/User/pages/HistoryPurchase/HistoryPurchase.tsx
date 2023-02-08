@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import classNames from 'classnames';
 import { createSearchParams, Link } from 'react-router-dom';
+import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import useQueryParams from 'src/hooks/useQueryParams';
 import purchaseApi from 'src/apis/purchase.api';
@@ -9,16 +10,18 @@ import { purchasesStatus } from 'src/constants/purchase';
 import { PurchaseListStatus } from 'src/types/purchase.type';
 import { formatCurrency, generateNameId } from 'src/utils/utils';
 
-const purchaseTabs = [
-    { status: purchasesStatus.all, name: 'Tất cả' },
-    { status: purchasesStatus.waitForConfirmation, name: 'Chờ xác nhận' },
-    { status: purchasesStatus.waitForGetting, name: 'Chờ lấy hàng' },
-    { status: purchasesStatus.inProgress, name: 'Đang giao' },
-    { status: purchasesStatus.delivered, name: 'Đã giao' },
-    { status: purchasesStatus.cancelled, name: 'Đã hủy' }
-];
-
 export default function HistoryPurchase() {
+    const { t } = useTranslation('user');
+
+    const purchaseTabs = [
+        { status: purchasesStatus.all, name: t('history purchase.all') },
+        { status: purchasesStatus.waitForConfirmation, name: t('history purchase.to pay') },
+        { status: purchasesStatus.waitForGetting, name: t('history purchase.to ship') },
+        { status: purchasesStatus.inProgress, name: t('history purchase.to receive') },
+        { status: purchasesStatus.delivered, name: t('history purchase.completed') },
+        { status: purchasesStatus.cancelled, name: t('history purchase.cancelled') }
+    ];
+
     const queryParams: { status?: string } = useQueryParams();
     const status: number = Number(queryParams.status) || purchasesStatus.all;
 
@@ -86,7 +89,7 @@ export default function HistoryPurchase() {
                             </Link>
                             <div className='flex justify-end'>
                                 <div>
-                                    <span>Tổng giá tiền</span>
+                                    <span>{t('history purchase.order total')}:</span>
                                     <span className='ml-4 text-xl text-orange'>
                                         ₫{formatCurrency(purchase.product.price * purchase.buy_count)}
                                     </span>

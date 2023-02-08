@@ -1,0 +1,37 @@
+{
+    "side nav": {
+        "edit profile": "Edit Profile",
+        "my account": "My Account",
+        "change pw": "Change Password",
+        "my purchase": "My Purchase"
+    },
+    "profile": {
+        "my profile": "My Profile",
+        "my profile desc": "Manage and protect your account",
+        "name": "Name",
+        "phone": "Phone Number",
+        "address": "Address",
+        "dob": "Date Of Birth",
+        "month": [],
+        "save": "Save",
+        "select image": "Select Image",
+        "size": "File size maximum:  1MB",
+        "extension": "File extension: .JPEG, .PNG"
+    },
+    "change password": {
+        "change pw desc": "For your account's security, do not share your password with anyone else",
+        "current pw": "Current Password",
+        "new pw": "New Password",
+        "confirm pw": "Confirm Password",
+        "confirm": "Confirm"
+    },
+    "history purchase": {
+        "all": "All",
+        "to pay": "To Pay",
+        "to ship": "To Ship",
+        "to receive": "To Receive",
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "order total": "Order Total"
+    }
+}

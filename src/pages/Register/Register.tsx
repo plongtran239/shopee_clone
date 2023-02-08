@@ -13,11 +13,14 @@ import { ErrorResponse } from 'src/types/utils.type';
 import { AppContext } from 'src/contexts/app.context';
 import Button from 'src/components/Button';
 import paths from 'src/constants/paths';
+import { useTranslation } from 'react-i18next';
 
 type FormData = Pick<Schema, 'email' | 'password' | 'confirm_password'>;
 const registerSchema = schema.pick(['email', 'password']);
 
 export default function Register() {
+    const { t } = useTranslation('header');
+
     const { setIsAuthenticated, setProfile } = useContext(AppContext);
 
     const navigate = useNavigate();
@@ -65,7 +68,7 @@ export default function Register() {
                 <div className='grid grid-cols-1 py-12 lg:grid-cols-5 lg:py-32 lg:pr-10'>
                     <div className='lg:col-span-2 lg:col-start-4'>
                         <form className='rounded bg-white p-10 shadow-sm' onSubmit={handleSubmitForm} noValidate>
-                            <div className='text-2xl'>Đăng ký</div>
+                            <div className='text-2xl'>{t('nav header.sign up')}</div>
 
                             <Input
                                 className='mt-8'
@@ -105,13 +108,13 @@ export default function Register() {
                                     isLoading={registerAccountMutation.isLoading}
                                     disabled={registerAccountMutation.isLoading}
                                 >
-                                    Đăng ký
+                                    {t('nav header.sign up')}
                                 </Button>
                             </div>
                             <div className='mt-8 flex items-center justify-center'>
-                                <span className='text-gray-400'>Bạn đã có tài khoản?</span>
+                                <span className='text-gray-400'>{t('auth.have an account')}</span>
                                 <Link className='ml-1 text-red-400' to={paths.login}>
-                                    Đăng nhập
+                                    {t('nav header.login')}
                                 </Link>
                             </div>
                         </form>

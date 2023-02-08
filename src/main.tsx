@@ -8,6 +8,7 @@ import App from './App';
 import './index.css';
 import { AppProvider } from './contexts/app.context';
 import ErrorBoundary from './components/ErrorBoundary';
+import 'src/i18n/i18n';
 
 const queryClient = new QueryClient({
     defaultOptions: {

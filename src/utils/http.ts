@@ -1,4 +1,4 @@
-import axios, { AxiosError, type AxiosInstance } from 'axios';
+import axios, { AxiosError, type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
 import { toast } from 'react-toastify';
 
 import config from 'src/constants/config';
@@ -85,7 +85,7 @@ class Http {
                 }
 
                 if (isAxiosUnauthorizedError<ErrorResponse<{ name: string; message: string }>>(error)) {
-                    const config = error.response?.config || {};
+                    const config = error.response?.config || ({ headers: {} } as InternalAxiosRequestConfig);
                     const { url } = config;
 
                     if (isAxiosExpiredTokenError(error) && url !== URL_REFRESH_TOKEN) {
@@ -108,7 +108,10 @@ class Http {
                     clearLS();
                     this.accessToken = '';
                     this.refreshToken = '';
-                    toast.error(error.response?.data.data?.message || error.response?.data.message);
+                    toast.error(error.response?.data.data?.message || error.response?.data.message, {
+                        autoClose: 1500,
+                        position: 'top-center'
+                    });
                     // window.location.reload()
                 }
 
