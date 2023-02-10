@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import matchers from '@testing-library/jest-dom/matchers';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
 import App from './App';
 
@@ -33,6 +33,18 @@ describe('App', () => {
         await waitFor(() => {
             expect(screen.queryByText('Bạn chưa có tài khoản?')).toBeInTheDocument();
             expect(document.querySelector('title')?.textContent).toBe('Đăng Nhập | Shopee Clone');
+        });
+    });
+
+    test('Page not found', async () => {
+        const badRoute = '/bad/route';
+        render(
+            <MemoryRouter initialEntries={[badRoute]}>
+                <App />
+            </MemoryRouter>
+        );
+        await waitFor(() => {
+            expect(screen.getByText(/Page Not Found/i)).toBeInTheDocument();
         });
         screen.debug(document.body.parentElement as HTMLElement, 999999999);
     });
