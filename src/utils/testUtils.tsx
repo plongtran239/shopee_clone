@@ -1,5 +1,10 @@
 import { expect } from 'vitest';
 import { screen, waitFor, type waitForOptions } from '@testing-library/dom';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from 'react-router-dom';
+
+import App from 'src/App';
 
 const delay = (time: number) =>
     new Promise((resolve) => {
@@ -23,4 +28,12 @@ export const logScreen = async (
         }
     );
     screen.debug(body, 99999999);
+};
+
+export const renderWithRouter = ({ route = '/' } = {}) => {
+    window.history.pushState('', 'Test Page', route);
+    return {
+        user: userEvent.setup(),
+        ...render(<App />, { wrapper: BrowserRouter })
+    };
 };
