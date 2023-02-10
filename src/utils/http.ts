@@ -16,7 +16,7 @@ import {
 import { isAxiosExpiredTokenError, isAxiosUnauthorizedError } from './utils';
 import { ErrorResponse } from 'src/types/utils.type';
 
-class Http {
+export class Http {
     instance: AxiosInstance;
     private accessToken: string;
     private refreshToken: string;
@@ -112,7 +112,6 @@ class Http {
                         autoClose: 1500,
                         position: 'top-center'
                     });
-                    // window.location.reload()
                 }
 
                 return Promise.reject(error);
