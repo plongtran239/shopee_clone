@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import App from 'src/App';
+import { AppProvider, getInitialAppContext } from 'src/contexts/app.context';
 
 const delay = (time: number) =>
     new Promise((resolve) => {
@@ -58,11 +59,14 @@ const Provider = createWrapper();
 
 export const renderWithRouter = ({ route = '/' } = {}) => {
     window.history.pushState('', 'Test Page', route);
+    const defaultValueAppContext = getInitialAppContext();
     return {
         user: userEvent.setup(),
         ...render(
             <Provider>
-                <App />
+                <AppProvider defaultValue={defaultValueAppContext}>
+                    <App />
+                </AppProvider>
             </Provider>,
             { wrapper: BrowserRouter }
         )

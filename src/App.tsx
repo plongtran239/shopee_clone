@@ -6,7 +6,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import useRouteElements from './useRouteElements';
 import { LocalStorageEventTarget } from './utils/auth';
-import { AppContext, AppProvider } from './contexts/app.context';
+import { AppContext } from './contexts/app.context';
 import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
@@ -24,12 +24,10 @@ function App() {
     return (
         <div>
             <HelmetProvider>
-                <AppProvider>
-                    <ErrorBoundary>
-                        {routeElements}
-                        <ToastContainer />
-                    </ErrorBoundary>
-                </AppProvider>
+                <ErrorBoundary>
+                    {routeElements}
+                    <ToastContainer />
+                </ErrorBoundary>
                 <ReactQueryDevtools initialIsOpen={false} />
             </HelmetProvider>
         </div>
