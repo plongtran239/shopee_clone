@@ -6,6 +6,10 @@ import { visualizer } from 'rollup-plugin-visualizer';
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react(), visualizer()],
+    test: {
+        environment: 'jsdom',
+        setupFiles: path.resolve(__dirname, './vitest.setup.js')
+    },
     server: {
         port: 3000
     },
@@ -16,8 +20,5 @@ export default defineConfig({
         alias: {
             src: path.resolve(__dirname, './src')
         }
-    },
-    test: {
-        environment: 'jsdom'
     }
 });
