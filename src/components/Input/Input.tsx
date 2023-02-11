@@ -1,17 +1,17 @@
 import { InputHTMLAttributes, useState } from 'react';
-import type { RegisterOptions, UseFormRegister } from 'react-hook-form';
+import type { FieldPath, FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
-interface Props extends InputHTMLAttributes<HTMLElement> {
+interface Props<TFieldValues extends FieldValues> extends InputHTMLAttributes<HTMLElement> {
     classNameInput?: string;
     classNameError?: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    register?: UseFormRegister<any>;
+    register?: UseFormRegister<TFieldValues>;
     rules?: RegisterOptions;
     errorMessage?: string;
     classNameEye?: string;
+    name: FieldPath<TFieldValues>;
 }
 
-export default function Input({
+export default function Input<TFieldValues extends FieldValues = FieldValues>({
     className,
     register,
     name,
@@ -21,7 +21,7 @@ export default function Input({
     classNameError = 'mt-1 text-red-600 min-h-[1.25rem] text-sm',
     classNameEye = 'absolute top-[8px] right-[5px] h-5 w-5 cursor-pointer',
     ...rest
-}: Props) {
+}: Props<TFieldValues>) {
     const registerResult = register && name ? register(name, rules) : null;
 
     const [visibility, setVisibility] = useState(false);
