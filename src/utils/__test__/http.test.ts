@@ -1,5 +1,7 @@
-import HttpStatusCode from 'src/constants/httpStatusCode.enum';
 import { describe, expect, it, beforeEach } from 'vitest';
+
+import HttpStatusCode from 'src/constants/httpStatusCode.enum';
+import { access_token_1s, refresh_token_1000days } from 'src/msw/auth.msw';
 import { setAccessTokenToLS, setRefreshTokenToLS } from '../auth';
 import { Http } from '../http';
 
@@ -9,10 +11,7 @@ describe('http axios', () => {
         localStorage.clear();
         http = new Http().instance;
     });
-    const access_token_1s =
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDRmYzE4NmQ3YzYyMDM0MDg0ZmQyZiIsImVtYWlsIjoibG9uZzEyM0BnbWFpbC5jb20iLCJyb2xlcyI6WyJVc2VyIl0sImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTEwVDAzOjMxOjE1LjU1OVoiLCJpYXQiOjE2NzU5OTk4NzUsImV4cCI6MTY3NTk5OTg3Nn0.eq36EZLDEVKio0oKbX_mHx8rHauCCezH4LY0cAVnLiw';
-    const refresh_token_1000days =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDRmYzE4NmQ3YzYyMDM0MDg0ZmQyZiIsImVtYWlsIjoibG9uZzEyM0BnbWFpbC5jb20iLCJyb2xlcyI6WyJVc2VyIl0sImNyZWF0ZWRfYXQiOiIyMDIzLTAyLTEwVDA0OjExOjAyLjM1NVoiLCJpYXQiOjE2NzYwMDIyNjIsImV4cCI6MTc2MjQwMjI2Mn0.zUeN9rqRBt_xP-JKooxB1eaqF4sDAjIOF81aTw6ec5Q';
+
     it('Call API', async () => {
         // Không nên đụng đến thư mục apis
         // Vì chúng ta test riêng file http thì chỉ "nên" dùng http thôi
